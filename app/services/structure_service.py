@@ -46,8 +46,7 @@ async def extract_termination(chunks):
 
 
 async def extract_renewal(chunks):
-    for c in chunks:
-        print(repr(c['section']))
+
   
     renewal_chunk = next(
     (c for c in chunks if any(
@@ -56,7 +55,6 @@ async def extract_renewal(chunks):
     )),
     None
         )
-    print(renewal_chunk)
     if not renewal_chunk:
        return {
             "is_auto_renewal": False,
