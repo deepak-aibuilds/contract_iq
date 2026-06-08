@@ -5,7 +5,7 @@ from sqlalchemy import text
 from app.core import logger
 import time
 from starlette.requests import Request
-from app.services import extract_pdf, chunk_by_sections, extract_payment, extract_termination, extract_renewal
+from app.services import extract_pdf, chunk_by_sections, extract_payment, extract_termination, extract_renewal, build_review_queue
 from datetime import datetime
 app = FastAPI()
 
