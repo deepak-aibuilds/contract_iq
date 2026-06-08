@@ -16,7 +16,7 @@ if uploaded_file:
         with st.spinner("Reading and extracting contract..."):
             file_bytes = uploaded_file.read()
             
-            # run your existing pipeline
+
             result = extract_pdf(file_bytes)
             chunks = chunk_by_sections(result["text"])
             
@@ -28,12 +28,12 @@ if uploaded_file:
             
             review_queue = build_review_queue(fields)
             
-            # store in session state
+
             st.session_state["fields"] = fields
             st.session_state["review_queue"] = review_queue
             st.session_state["filename"] = uploaded_file.name
 
-# --- RESULTS SCREEN ---
+
 if "fields" in st.session_state:
     fields = st.session_state["fields"]
     review_queue = st.session_state["review_queue"]
@@ -41,7 +41,7 @@ if "fields" in st.session_state:
     st.divider()
     st.subheader(f"Results — {st.session_state['filename']}")
 
-    # --- EXTRACTED FIELDS ---
+
     col1, col2, col3 = st.columns(3)
 
     with col1:
@@ -76,7 +76,7 @@ if "fields" in st.session_state:
         color = "green" if confidence == "high" else "orange" if confidence == "medium" else "red"
         st.markdown(f"**Confidence:** :{color}[{confidence}]")
 
-    # --- REVIEW QUEUE ---
+
     st.divider()
     st.subheader("Review Queue")
 

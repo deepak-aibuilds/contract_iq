@@ -1,29 +1,27 @@
-# Project Name
-[Project Name Here]
+ContractIQ
+Automated first-pass contract review powered by Mistral AI. Extracts key fields from legal contracts, scores confidence, and flags items for human review — reducing manual review time from 45 minutes to under 2 minutes per document.
 
-## What it does
-[One paragraph description]
+What It Does
+Upload a PDF contract and ContractIQ will:
 
-## Stack
-FastAPI · PostgreSQL · SQLAlchemy · Alembic · Python 3.13
+Extract structured fields — payment terms, termination clauses, auto-renewal
+Score confidence per field (high / medium / low)
+Flag high-risk or uncertain fields for human review
+Let reviewers confirm or correct flagged items in a simple UI
 
-## Setup
-\```bash
-uv sync
-cp .env.example .env
-# Fill in your .env values
 
-alembic upgrade head
-uv run uvicorn app.main:app --reload
-\```
+Architecture
+PDF Upload (Streamlit)
+    ↓
+Text Extraction (pymupdf)
+    ↓
+Section-Aware Chunking (regex on section headers)
+    ↓
+Per-Field Extraction (LangChain + Mistral)
+    ↓
+Confidence Scoring + Review Queue Logic
+    ↓
+Streamlit Review UI
 
-## Endpoints
-| Method | Path | Description |
-|--------|------|-------------|
-| GET | /health | Health check |
-
-## Environment Variables
-| Variable | Required | Description |
-|----------|----------|-------------|
-| DATABASE_URL | Yes | PostgreSQL connection string |
-| MISTRAL_API_KEY | No | For LLM features |
+Extracted Fields
+FieldWhat It CapturesPayment TermsAmount, schedule, late penaltiesTerminationNotice period, type, conditionsAuto-RenewalWhether present, notice required, renewal terms
