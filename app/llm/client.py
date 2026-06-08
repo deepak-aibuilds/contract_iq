@@ -5,7 +5,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from pathlib import Path
 from typing import Literal
 from pydantic import BaseModel
-
+import os
 
 load_dotenv()
 
@@ -50,11 +50,14 @@ renewal_extractor= load_prompt('prompts/renewal_v1')
 renewal_prompt= ChatPromptTemplate.from_template(renewal_extractor)
 
 
-primary_llm  = ChatMistralAI(model="mistral-small-latest")
-fallback_llm = ChatGroq(model="llama-3.3-70b-versatile")
+primary_llm = ChatMistralAI(model="mistral-small-latest")
 
-
-llm = primary_llm.with_fallbacks([fallback_llm])
+groq_key = os.getenv("GROQ_API_KEY", "").strip()
+if groq_key:
+    fallback_llm = ChatGroq(model="llama-3.3-70b-versatile", api_key=groq_key)
+    llm = primary_llm.with_fallbacks([fallback_llm])
+else:
+    llm = primary_llm
 
 
 def get_payment():
