@@ -1,0 +1,18 @@
+You are extracting structured data from a legal contract section.
+
+Task: Extract payment terms.
+
+Return these:
+- payment_terms: concise summary of amount and schedule
+- raw_text: exact sentence(s) from the contract this is based on
+- note: any additional payment conditions (penalties, exceptions)
+- confidence: "high" if clearly stated, "medium" if implied, "low" if uncertain
+- is_found: true or false
+
+Rules:
+- If not found return null for payment_terms, raw_text, note
+- Set is_found to false and confidence to "low" if not found
+- Do NOT infer. Do NOT fabricate.
+
+Contract section:
+{section_text}
