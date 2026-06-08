@@ -11,25 +11,18 @@ load_dotenv()
 
 
 class PaymentJson(BaseModel):
-    payment_terms: str
-    raw_text: str
-    notes: str
-    confidence : Literal['low','medium','high']
+    payment_terms: str | None = None
+    raw_text: str | None = None
+    notes: str | None = None
+    confidence: Literal['low', 'medium', 'high']
     is_found: bool
 
 class TerminationJson(BaseModel):
-    notice_period: str
-    termination_type: Literal[
-                                "for cause",
-                                "for convenience",
-                                "mutual",
-                                "for cause and convenience",
-                                'Unknown'
-                                ]
-    
-    condition: str
-    raw_text: str
-    confidence : Literal['low','medium','high']
+    notice_period: str | None = None
+    termination_type: Literal["for cause", "for convenience", "mutual", "for cause and convenience", "Unknown"] | None = None
+    condition: str | None = None
+    raw_text: str | None = None
+    confidence: Literal['low', 'medium', 'high']
     is_found: bool
 
 class RenewalJson(BaseModel):
